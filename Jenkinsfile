@@ -54,14 +54,16 @@ pipeline{
 	}
 	stage{
 	    steps{
-		withCredentials([string(credentialsId: 'nexus_passwd', variable: 'nexus-creds')]){
-		dir('kubernetes/') {
-		    sh '''
-		    helmversion=$(helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
-		    tar -czvf myapp-${helmversion myapp/
-		    curl -u admin:$nexus-creds http://172.31.12.32:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
-		    '''
-		}
+		script{
+		    withCredentials([string(credentialsId: 'nexus_passwd', variable: 'nexus-creds')]){
+			dir('kubernetes/') {
+		    	sh '''
+		    	helmversion=$(helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
+		    	tar -czvf myapp-${helmversion myapp/
+		    	curl -u admin:$nexus-creds http://172.31.12.32:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
+		    	'''
+			}
+		    }
 		}
 	    }
 	}
