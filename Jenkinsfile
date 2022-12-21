@@ -52,7 +52,7 @@ pipeline{
 		}
 	    }
 	}
-	stage{
+	stage('Pushing the helm charts to nexus repo'){
 	    steps{
 		script{
 		    withCredentials([string(credentialsId: 'nexus_passwd', variable: 'nexus-creds')]){
