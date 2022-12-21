@@ -60,7 +60,7 @@ pipeline{
 		    	    sh '''
 		    	    helmversion=$(helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
 		    	    tar -czvf myapp-${helmversion myapp/
-		    	    curl -u admin:$nexus-creds http://172.31.12.32:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
+		    	    curl -u admin:nexus http://172.31.12.32:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
 		    	    '''
 			}
 		    }
