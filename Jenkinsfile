@@ -62,6 +62,7 @@ pipeline{
 		    curl -u admin:$nexus-creds http://172.31.12.32:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
 		    '''
 		}
+		}
 	    }
 	}
     }
